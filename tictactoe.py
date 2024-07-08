@@ -27,15 +27,15 @@ def player(board):
     o_count = 0
     for row in board:
         for cell in row:
-            if cell == "X":
+            if cell == X:
                 x_count += 1
-            elif cell == "O":
+            elif cell == O:
                 o_count += 1
             
     if x_count > o_count:
-        return "O"
+        return O
     else:
-        return "X"
+        return X
 
 
 def actions(board):
@@ -78,6 +78,29 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
+    # TODO: test if works and refactor this to be more efficient
+    response = None
+    for row in board:
+        if row[0] == row[1] == row[2]:
+            response = row[0]
+            break
+    if response == None:
+        for i in range(3):
+            if board[0][i] == board[1][i] == board[2][i]:
+                response = board[0][i]
+                break
+    if response == None:
+        if board[0][0] == board[1][1] == board[2][2]:
+            response = board[0][0]
+        elif board[0][2] == board[1][1] == board[2][0]:
+            response = board[0][2]
+    if response == X:
+        return 1
+    elif response == O:
+        return -1
+    else:
+        return 0
+    
     raise NotImplementedError
 
 
@@ -85,4 +108,5 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    
     raise NotImplementedError
