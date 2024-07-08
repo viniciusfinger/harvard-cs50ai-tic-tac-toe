@@ -45,10 +45,10 @@ def actions(board):
     
     actions = set()
     
-    for row in board:
-        for cell in row:
-            if cell == None:
-                actions.add((row, cell))
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == None:
+                actions.add((i, j))
 
     return actions
 
@@ -78,7 +78,7 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    # TODO: test if works and refactor this to be more efficient
+    # TODO: refactor this to be more efficient
     response = None
     for row in board:
         if row[0] == row[1] == row[2]:
@@ -100,8 +100,6 @@ def utility(board):
         return -1
     else:
         return 0
-    
-    raise NotImplementedError
 
 
 def minimax(board):
