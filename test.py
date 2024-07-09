@@ -1,7 +1,9 @@
 from tictactoe import *
 
-table = [[X, EMPTY, O],
+board = [[X, EMPTY, O],
         [X, O, EMPTY],
         [EMPTY, EMPTY, EMPTY]]
 
-print(actions(table))
+action = list(actions(board))[0]
+
+result(board, action)
