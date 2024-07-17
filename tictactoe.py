@@ -3,7 +3,9 @@ Tic Tac Toe Player
 """
 
 from copy import deepcopy
-import math
+
+#TODO: ISSUE: when 3 O`s in a row, don't count as a O win
+#TODO: ISSUE: infinit loop when the player select O.
 
 X = "X"
 O = "O"
@@ -84,7 +86,8 @@ def terminal(board):
     for row in board:
         if None in row:
             return False
-        return True
+    
+    return True
 
 
 def utility(board):
@@ -119,5 +122,40 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+    # Implement the minimax algorithm
+    if terminal(board):
+        return None
     
-    raise NotImplementedError
+    if player(board) == X:
+        return max_value(board)[1]
+    else:
+        return min_value(board)[1]
+    
+def max_value(board):
+    if terminal(board):
+        return utility(board), None
+    
+    v = float('-inf')
+    best_action = None
+    for action in actions(board):
+        min_val = min_value(result(board, action))[0]
+        if min_val > v:
+            v = min_val
+            best_action = action
+            
+    return v, best_action
+
+def min_value(board):
+    if terminal(board):
+        return utility(board), None
+    
+    v = float('inf')
+    best_action = None
+    for action in actions(board):
+        max_val = max_value(result(board, action))[0]
+        if max_val < v:
+            v = max_val
+            best_action = action
+            
+    return v, best_action
+
