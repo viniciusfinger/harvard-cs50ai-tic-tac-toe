@@ -58,6 +58,12 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    if (board[action[0]][action[1]] != None):
+        raise Exception("Invalid move, already taken.")
+    
+    if action[0] < 0 or action[1] < 0:
+        raise Exception("Invalid move, negative index.")
+    
     new_board = deepcopy(board)
     
     new_board[action[0]][action[1]] = player(board)
