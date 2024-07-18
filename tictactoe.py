@@ -23,7 +23,7 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    # TODO: refactor this to be more efficient
+    
     x_count = 0
     o_count = 0
     for row in board:
