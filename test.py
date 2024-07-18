@@ -1,9 +1,11 @@
 from tictactoe import *
 
-board = [[X, EMPTY, O],
-        [X, O, EMPTY],
-        [EMPTY, EMPTY, EMPTY]]
+board = [[X, EMPTY, EMPTY],
+        [EMPTY, X, EMPTY],
+        [EMPTY, EMPTY, X]]
 
-action = list(actions(board))[0]
+print(utility(board))
 
-result(board, action)
+# action = list(actions(board))[0]
+
+# result(board, action)

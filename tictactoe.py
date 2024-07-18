@@ -4,8 +4,6 @@ Tic Tac Toe Player
 
 from copy import deepcopy
 
-#TODO: ISSUE: when 3 O`s in a row, don't count as a O win
-#TODO: ISSUE: infinit loop when the player select O.
 
 X = "X"
 O = "O"
@@ -72,8 +70,10 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
     if utility(board) == 1:
+        print("X wins")
         return X
     elif utility(board) == -1:
+        print("O wins")
         return O
     else:
         return None
@@ -83,6 +83,9 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
+    if utility(board) != 0:
+        return True
+    
     for row in board:
         if None in row:
             return False
@@ -94,29 +97,39 @@ def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    # TODO: refactor this to be more efficient
-    response = None
+    
+    # Check row win
     for row in board:
-        if row[0] == row[1] == row[2]:
-            response = row[0]
-            break
-    if response == None:
-        for i in range(3):
-            if board[0][i] == board[1][i] == board[2][i]:
-                response = board[0][i]
-                break
-    if response == None:
-        if board[0][0] == board[1][1] == board[2][2]:
-            response = board[0][0]
-        elif board[0][2] == board[1][1] == board[2][0]:
-            response = board[0][2]
-    if response == X:
-        return 1
-    elif response == O:
-        return -1
-    else:
-        return 0
-
+        if row[0] == row[1] == row[2] and not row[1] == None:
+            if row[0] == X:
+                return 1
+            else:
+                return -1
+    
+    # Check column win
+    for i in range(3):
+        if board[0][i] == board[1][i] == board[2][i] and not board[1][i] == None:
+            if board[0][i] == X:
+                return 1
+            else:
+                return -1
+    
+    # Check diagonal win from top left to bottom right
+    if board[0][0] == board[1][1] == board[2][2] and not board[1][1] == None:
+        if board[0][0] == X:
+            return 1
+        else:
+            return -1
+        
+    # Check diagonal win from top right to bottom left
+    if board[0][2] == board[1][1] == board[2][0] and not board[1][1] == None:
+        if board[0][2] == X:
+            return 1
+        else:
+            return -1
+    
+    return 0
+    
 
 def minimax(board):
     """
